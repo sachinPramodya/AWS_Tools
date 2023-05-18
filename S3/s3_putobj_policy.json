@@ -1,0 +1,36 @@
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "arn:aws:iam::<AWS_ACCOUNT_ID_FOR_YOUR_REGION>:root"
+        },
+        "Action": "s3:PutObject",
+        "Resource": "arn:aws:s3:::<S3_BUCKET_NAME>/prefix/AWSLogs/<YOUR_ACCOUNT_ID>/*"
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "delivery.logs.amazonaws.com"
+        },
+        "Action": "s3:PutObject",
+        "Resource": "arn:aws:s3:::<S3_BUCKET_NAME>/prefix/AWSLogs/<YOUR_ACCOUNT_ID>/*",
+        "Condition": {
+          "StringEquals": {
+            "s3:x-amz-acl": "bucket-owner-full-control"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "delivery.logs.amazonaws.com"
+        },
+        "Action": "s3:GetBucketAcl",
+        "Resource": "arn:aws:s3:::<S3_BUCKET_NAME>"
+      }
+    ]
+  }
+   
